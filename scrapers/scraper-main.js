@@ -4,6 +4,7 @@ const path = require('path');
 const request = require('request');
 const os = require('os');
 const ScraperPreviewsWorld = require('./scraper-previewsworld');
+const ScraperLeagueOfComicGeeks = require('./scraper-leagueofcomicgeeks');
 
 
 const imageDir = "data/images";
@@ -102,4 +103,26 @@ async function scrapePreviewsWorldWithId(id, filename) {
     return "Data written to " + filename + "\n";
 }
 
-module.exports = { scrapePreviewWorldFromList, scrapePreviewsWorld, scrapePreviewsWorldWithId };
+async function scrapeLeagueOfComicGeeksWeeklyList() {
+    console.log("scraper-main.scrapeLeagueOfComicGeeksWeeklyList(): In ");
+
+    var scrapeUrl = "";
+    // var filename = "";
+
+    //console.log("scraper-main.scrapePreviewsWorldWithId: Scraping Id(" + id + ")");
+    responseData = await ScraperLeagueOfComicGeeks.scrapeWeeklyListPage("https://leagueofcomicgeeks.com/comics/new-comics");
+
+    // try {
+    //     //console.log(filename);
+    //     fs.writeFileSync(filename, JSON.stringify(responseData));
+    // } catch (err) {
+    //     console.error(err);
+    //     return "";
+    // }
+
+    //console.log("scraper-main.scrapePreviewsWorldWithId(" + id + "): Finished");
+
+    return responseData;// "Done";//"Data written to " + filename + "\n";
+}
+
+module.exports = { scrapePreviewWorldFromList, scrapePreviewsWorld, scrapePreviewsWorldWithId, scrapeLeagueOfComicGeeksWeeklyList };

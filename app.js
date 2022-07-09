@@ -122,6 +122,17 @@ router.route('/loadAllData').get(async function (req, res) {
   res.status(200).send(LoadJson.dumpCSV());
 
 });
+
+router.route('/scrapeLeagueOfComicGeeksWeeklyList').get(async function (req, res) {
+
+  console.log("ComicScraper:/scrapeLeagueOfComicGeeksWeeklyList");
+  let results = await ScraperMain.scrapeLeagueOfComicGeeksWeeklyList();
+
+  console.log("ComicScraper:/scrapeLeagueOfComicGeeksWeeklyList - Results:" + results);
+
+  res.status(200).send(results);
+});
+
    
 app.use('/', router);
 app.set('views', __dirname + '/public');

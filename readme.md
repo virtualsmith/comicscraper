@@ -71,10 +71,31 @@ Load all data from the /data/Shortboxed directory.
 
 
 
+# Data Sources
 
+## Shortboxed
+* https://api.shortboxed.com/
+* https://api.shortboxed.com/comics/v1/releases/available
+* https://api.shortboxed.com/comics/v1/release_date/2016-02-17
+* https://api.shortboxed.com/comics/v1/new
 
+## PreviewsWorld
+* https://www.previewsworld.com/NewReleases?releaseDate=03/09/2022
+* https://www.previewsworld.com/Catalog/Series/128928-REED-GUNTHER
+* https://www.previewsworld.com/Catalog/MAY190690
 
+## Alternate Sources
+### Fresh Comics
+* https://freshcomics.us/issues/2022-03-02
+* https://freshcomics.us/issue/SEP217015/arkham-city-the-order-of-the-world-2-yasmine-putri-card-stock-cover
+* https://freshcomics.us/issues/2020-08-19
+* https://freshcomics.us/issues/2016-01-06
 
+### GrepComics
+* https://grepcomics.io/releases/2016-7-13 (farthest it goes back)
+* https://grepcomics.io/api (Can't get an API key anymore)    )
+
+# Coding Sources
 
 Tutorials that helped with some of the concepts:
 * https://levelup.gitconnected.com/stop-using-a-starter-node-js-project-and-build-your-own-38a97aa723f9

@@ -9,7 +9,7 @@ The REST API to the example app is described below.
 
 `GET /`
 
-    curl -i -H 'Accept: application/json' curl localhost:3030/
+    curl -i -H 'Accept: application/json' localhost:3030/
 
 ### Response
 
@@ -18,6 +18,7 @@ The REST API to the example app is described below.
 ## Scrape Previews World site
 
 This scrapes data from the PreviewsWorld website, gets comic data, then saves it off to a file in /data/PreviewsWorld/Catalog or /data/PreviewsWorld/Series
+
 https://www.previewsworld.com/Catalog/MAY190690
 https://www.previewsworld.com/Catalog/Series/142143-HOUSE-OF-X
 
@@ -38,6 +39,11 @@ https://www.previewsworld.com/Catalog/Series/142143-HOUSE-OF-X
    **Optional:**
  
    `seriesId=[series Id]`
+
+* Examples:
+curl localhost:3030/scrapePreviewsWorld?url=https://www.previewsworld.com/Catalog/MAY220353
+curl localhost:3030/scrapePreviewsWorld?id=MAY220501
+curl localhost:3030/scrapePreviewsWorld?seriesId=143729-FIRE-POWER-BY-KIRKMAN--SAMNEE
 
 ## Scrape Previews World using Shortboxed Data
 
@@ -65,6 +71,20 @@ Load all data from the /data/Shortboxed directory.
 
    **None**
  
+
+## Scrape League of Comic Geeks Weekly List
+
+Meant to be called with a week parameter that cooresponds with a data file in the /data/Shortboxed directory.  It will then parse each item in that file and scrape PreviewsWorld for each
+
+### Request
+
+`GET /scrapeLeagueOfComicGeeksWeeklyList`
+
+*  **URL Params**
+
+   **Required:**
+ 
+   `week=[YYYY-MM-DD]`
 
 
 

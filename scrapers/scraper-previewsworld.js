@@ -30,6 +30,7 @@ async function getValue(page, xpath, valuetype='textContent') {
 
 function downloadImage(url, id, location) {
     let writelocation = `${location}/${id}.jpg`;
+    //console.log("DownloadImage (" + url + ") to " + writelocation);
     request.head(url, (err, res, body) => {
         var writeStream = fs.createWriteStream(writelocation);
         writeStream.on('error', (err) => {
@@ -40,7 +41,7 @@ function downloadImage(url, id, location) {
           .pipe(writeStream);
     });
     
-    //console.log(url + " downloaded");
+    //console.log(url + " downloaded to " + writelocation);
     return writelocation;
   
 }

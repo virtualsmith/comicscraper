@@ -5,8 +5,8 @@ const request = require('request');
 const os = require('os');
 
 const imageDir = "data/images";
-const lcgDirCatalog = "data/LeagueOfComicGeeks/WeeklyLists"
-const lcgDirSeries = "data/LeagueOfComicGeeks/Comics"
+const locgDirWeekly = "data/LeagueOfComicGeeks/Weekly";
+const locgDirIssues = "data/LeagueOfComicGeeks/Issues";
 
 
 async function getValue(page, xpath, valuetype='textContent') {
@@ -49,64 +49,37 @@ async function scrapeWeeklyListPage(url) {
            ],
         };
             
-    }//*[@id="comic-list-issues"]/li[1]
+    }
 
     const browser = await puppeteer.launch(browserOpts);
     
     const page = await browser.newPage();
-    await page.goto(url);
-    //await page.click('#btnShowTable');
-    await page.waitFor(1000);
+//    await page.goto(url);
+//    await page.waitFor(1000);
+    await page.goto(url, { waitUntil: "load", timeout: 0 });
+
 
     console.log(`LCGScraper:scrapeWeeklyListPage: Went to ${url}`);
     let weekDate = await getValue(page, '//*[@id="date_release_week"]', 'value');
 
-    console.log("weekdate: " + weekDate);
+    console.log("weekdate: " + weekDate + "\n");
 
-    // let listIssues = await page.evaluate(() => {
-
-    //     let issuesBlock = document.body.querySelectorAll('//*[@id="comic-list-issues"]');
-    //     let quotes = Object.values(quotesElement).map(x => {
-    //         return {
-    //             author: x.querySelector('.author').textContent ?? null,
-    //             quote: x.querySelector('.content').textContent ?? null,
-    //             tag: x.querySelector('.tag').textContent ?? null,
-
-    //         }
-    //     });
-
-
-    // await page.evaluate(() => 
-    //    Array.from(document.querySelectorAll('//*[@id="comic-list-issues"]/li'), 
-    //    console.log(e)));
-
-    //let listBlock = await page.$x('//*[@id="comic-list-issues"]');//await getValue(page, '//*[@id="comic-list-issues"]');
-    //console.log("listBlock: " + listBlock);
-    
-    // let [stuff] = await page.$x('//*[@id="comic-list-issues"]');
-    // console.log(stuff);
-console.log("1");
     const listIssues = await page.evaluate(() => {
-        const lis = Array.from(document.querySelectorAll('ul[id="comic-list-issues"]'));
-        console.log("lis: " + lis);
+        //document.querySelectorAll('[id="comic-list-issues"]').length;
+        const lis = Array.from(document.querySelector('[id="comic-list-issues"]').querySelectorAll('li'));
         return lis.map(li => {
-            console.log("..in..");
-            let issueName = li.querySelector("div.title").a;
-            let issueUrl = li.querySelector("div.title").a;
-            let issueDate ="";//  = li.querySelector("div[5]/span[1]").innerText.trim();
-            console.log("Found: issue(" + issueName + ", " + issueDate + ": " + issueUrl +")");
-           return { issueName: issueName, issueUrl: issueUrl, issueDate: issueDate};
+            let issueNum = li.querySelector(".title").innerText.trim();
+            let issueUrl = li.querySelector(".cover").querySelector("a").href;
+            let issuePub = li.querySelector(".publisher").innerText.trim();
+            let issueDate = li.querySelector(".details").querySelector("span").innerText.trim();
+            return { issueNum: issueNum, issueUrl: issueUrl, issuePub: issuePub, issueDate: issueDate};
         });
     });
-    console.log("2");
-
-    console.log("list:" + listIssues);
+    //console.dir(listIssues);
 
     browser.close();
-
-    var listLength = Object.keys(listIssues).length;
-
-    return ({weekDate, listIssues});
+      
+    return ({weekDate, listIssues});//, listIssues});
 }
 
 module.exports = { scrapeWeeklyListPage };

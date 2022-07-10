@@ -16,9 +16,10 @@ const LoadJson = require('./loadjson');
 const ComicData = require('./model/comic-data');
 
 const imageDir = "data/images";
-const previewsWorldDirCatalog = "data/PreviewsWorld/Catalog"
-const previewsWorldDirSeries = "data/PreviewsWorld/Series"
-const shortboxedDir = "data/Shortboxed"
+const previewsWorldDirCatalog = "data/PreviewsWorld/Catalog";
+const previewsWorldDirSeries = "data/PreviewsWorld/Series";
+const shortboxedDir = "data/Shortboxed";
+const locgDirWeekly = "data/LeagueOfComicGeeks/Weekly";
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');

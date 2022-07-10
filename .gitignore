@@ -144,7 +144,7 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
-# comicscrapre specific ignore
+# comicscraper specific ignore
 !DEC150904.jpg
 data/*
 images/*

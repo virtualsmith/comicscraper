@@ -8,9 +8,16 @@ const ScraperLeagueOfComicGeeks = require('./scraper-leagueofcomicgeeks');
 
 
 const imageDir = "data/images";
-const previewsWorldDirCatalog = "data/PreviewsWorld/Catalog"
-const previewsWorldDirSeries = "data/PreviewsWorld/Series"
-const shortboxedDir = "data/Shortboxed"
+const previewsWorldDirCatalog = "data/PreviewsWorld/Catalog";
+const previewsWorldDirSeries = "data/PreviewsWorld/Series";
+const shortboxedDir = "data/Shortboxed";
+const locgDirWeekly = "data/LeagueOfComicGeeks/Weekly";
+const locgDirIssues = "data/LeagueOfComicGeeks/Issues";
+
+function pad(n) {
+    return n<10 ? '0'+n : n
+}
+
 
 async function scrapePreviewWorldFromList(comicListing) {
     //console.log("scraper-main.scrapePreviewWorldFromList: List:" + comicListing.length + " comics");
@@ -107,22 +114,23 @@ async function scrapeLeagueOfComicGeeksWeeklyList() {
     console.log("scraper-main.scrapeLeagueOfComicGeeksWeeklyList(): In ");
 
     var scrapeUrl = "";
-    // var filename = "";
+    var filename = "" + locgDirWeekly + "/";
 
-    //console.log("scraper-main.scrapePreviewsWorldWithId: Scraping Id(" + id + ")");
     responseData = await ScraperLeagueOfComicGeeks.scrapeWeeklyListPage("https://leagueofcomicgeeks.com/comics/new-comics");
 
-    // try {
-    //     //console.log(filename);
-    //     fs.writeFileSync(filename, JSON.stringify(responseData));
-    // } catch (err) {
-    //     console.error(err);
-    //     return "";
-    // }
+    const weekDate = new Date(responseData.weekDate);
+    const weekString = "" + weekDate.getFullYear() + "-" + pad(weekDate.getMonth() + 1) + "-" + pad(weekDate.getDate());
+    
+    try {
+        filename = filename + weekString + ".json";
+        console.log(filename);
+        fs.writeFileSync(filename, JSON.stringify(responseData.listIssues));
+    } catch (err) {
+        console.error(err);
+        return "";
+    }
 
-    //console.log("scraper-main.scrapePreviewsWorldWithId(" + id + "): Finished");
-
-    return responseData;// "Done";//"Data written to " + filename + "\n";
+    return "Data written to " + filename + "\n";
 }
 
 module.exports = { scrapePreviewWorldFromList, scrapePreviewsWorld, scrapePreviewsWorldWithId, scrapeLeagueOfComicGeeksWeeklyList };
